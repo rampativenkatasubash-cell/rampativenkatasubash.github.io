@@ -1202,6 +1202,131 @@
     }
 
     /* ══════════════════════════════════════
+   INTERNSHIP CERTIFICATES
+══════════════════════════════════════ */
+    .internship-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .internship-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 1rem;
+      padding: 1.8rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s;
+      cursor: none;
+    }
+
+    .internship-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      background: linear-gradient(135deg, rgba(0, 188, 212, 0.07), transparent);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .internship-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00bcd4, #7c3aed);
+      transform: scaleX(0);
+      transition: transform 0.35s ease;
+      transform-origin: left;
+    }
+
+    .internship-card:hover {
+      background: rgba(0, 188, 212, 0.06);
+      border-color: rgba(0, 188, 212, 0.35);
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 188, 212, 0.1);
+    }
+
+    .internship-card:hover::before { opacity: 1; }
+    .internship-card:hover::after { transform: scaleX(1); }
+
+    .intern-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.75rem;
+      border-radius: 2rem;
+      width: fit-content;
+      margin-bottom: 0.4rem;
+    }
+
+    .intern-badge.grade-o {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #10b981;
+    }
+
+    .intern-badge.grade-b {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.35);
+      color: #3b82f6;
+    }
+
+    .intern-badge.grade-c {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: #f59e0b;
+    }
+
+    .intern-badge.grade-p {
+      background: rgba(156, 163, 175, 0.15);
+      border: 1px solid rgba(156, 163, 175, 0.3);
+      color: #9ca3af;
+    }
+
+    .intern-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .intern-org {
+      font-size: 0.82rem;
+      color: #00bcd4;
+      font-weight: 600;
+    }
+
+    .intern-period {
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.45);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .intern-id {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.28);
+      font-family: monospace;
+      margin-top: 0.4rem;
+      padding-top: 0.8rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* ══════════════════════════════════════
    CONTACT
 ══════════════════════════════════════ */
     #contact {
@@ -1494,7 +1619,7 @@
       <h1 class="hero-name" id="heroName"></h1>
       <p class="hero-tagline">  Data Science &amp; AI/ML Engineer Innovator</p>
       <div class="hero-btns">
-        <a href="mailto:rampativenkatasubash@gmail.com" class="btn btn-primary">✉ Get In Touch</a>
+        <a href="/cdn-cgi/l/email-protection#93e1f2fee3f2e7fae5f6fdf8f2e7f2e0e6f1f2e0fbd3f4fef2faffbdf0fcfe" class="btn btn-primary">✉ Get In Touch</a>
         <a href="https://github.com/rampativenkatasubash-cell" target="_blank" class="btn btn-outline">⇗ GitHub</a>
         <a href="https://linkedin.com/in/venkata-subash-rampati-959ba5301" target="_blank" class="btn btn-outline">in
           LinkedIn</a>
@@ -1822,6 +1947,62 @@
           <div class="cert-pill"><span class="cert-icon">🧠</span> IBM Generative AI</div>
         </div>
       </div>
+
+      <div class="reveal">
+        <h2 class="section-heading" style="margin-top:3rem">Virtual Internships</h2>
+        <div class="cyan-bar"></div>
+        <div class="internship-grid">
+
+          <div class="internship-card">
+            <div class="intern-badge grade-o">🏅 Grade O &nbsp;·&nbsp; Outstanding</div>
+            <div class="intern-title">SQL and Database Management Systems</div>
+            <div class="intern-org">🎓 AICTE · EduSkills Academy</div>
+            <div class="intern-period">📅 January – March 2026 &nbsp;·&nbsp; 10 Weeks</div>
+            <div class="intern-id">Cert ID: 41f5ae6b5e0afcd3492a</div>
+          </div>
+
+          <div class="internship-card">
+            <div class="intern-badge grade-o">🏅 Grade O &nbsp;·&nbsp; Outstanding</div>
+            <div class="intern-title">DevOps &amp; Cloud Automation</div>
+            <div class="intern-org">🎓 AICTE · EduSkills Academy</div>
+            <div class="intern-period">📅 January – March 2026 &nbsp;·&nbsp; 10 Weeks</div>
+            <div class="intern-id">Cert ID: 42b693a08b73d13ae64b</div>
+          </div>
+
+          <div class="internship-card">
+            <div class="intern-badge grade-b">🎖 Grade B &nbsp;·&nbsp; Good</div>
+            <div class="intern-title">Java Full Stack Developer</div>
+            <div class="intern-org">🎓 AICTE · EduSkills Academy</div>
+            <div class="intern-period">📅 October – December 2024 &nbsp;·&nbsp; 10 Weeks</div>
+            <div class="intern-id">Cert ID: e386d9638b348ebd3896ac83062fe03c</div>
+          </div>
+
+          <div class="internship-card">
+            <div class="intern-badge grade-p">📋 Grade P &nbsp;·&nbsp; Pass</div>
+            <div class="intern-title">Data Engineering</div>
+            <div class="intern-org">🎓 AICTE · EduSkills &nbsp;·&nbsp; AWS Academy Curriculum</div>
+            <div class="intern-period">📅 October – December 2024 &nbsp;·&nbsp; 10 Weeks</div>
+            <div class="intern-id">Cert ID: 3157c3e1f43e1cea6e95e80a06db99e7</div>
+          </div>
+
+          <div class="internship-card">
+            <div class="intern-badge grade-c">⭐ Grade C &nbsp;·&nbsp; Fair</div>
+            <div class="intern-title">Android Developer</div>
+            <div class="intern-org">🎓 AICTE · EduSkills &nbsp;·&nbsp; Google for Developers</div>
+            <div class="intern-period">📅 January – March 2024 &nbsp;·&nbsp; 10 Weeks</div>
+            <div class="intern-id">Cert ID: 4c3981a6c2d2d3f138dfdfb73968dbeb</div>
+          </div>
+
+          <div class="internship-card">
+            <div class="intern-badge grade-p">📋 Grade P &nbsp;·&nbsp; Pass</div>
+            <div class="intern-title">AI-ML (Artificial Intelligence &amp; Machine Learning)</div>
+            <div class="intern-org">🎓 AICTE · EduSkills &nbsp;·&nbsp; Google for Developers</div>
+            <div class="intern-period">📅 April – June 2024 &nbsp;·&nbsp; 10 Weeks</div>
+            <div class="intern-id">Cert ID: b9e9bb96be1bd13877e59462e5491b8e</div>
+          </div>
+
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1851,13 +2032,13 @@
   <!-- FOOTER -->
   <footer>
     <div>
-      <div>✉ rampativenkatasubash@gmail.com</div>
+      <div>✉ <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cbb9aaa6bbaabfa2bdaea5a0aabfaab8bea9aab8a38baca6aaa2a7e5a8a4a6">[email&#160;protected]</a></div>
       <div>📱 +91 93981 69378</div>
     </div>
     <span>RVS.</span>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ══════════════════════════════════════
     // SCROLL SPY & REVEAL
     // ══════════════════════════════════════
@@ -2052,13 +2233,4 @@
     // 3D PHOTO TILT
     // ══════════════════════════════════════
     const card = document.getElementById('photoCard');
-    document.addEventListener('mousemove', e => {
-      const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-      const dx = (e.clientX - cx) / cx, dy = (e.clientY - cy) / cy;
-      card.style.transform = `rotateY(${dx * 14}deg) rotateX(${-dy * 10}deg)`;
-      card.style.animation = 'none';
-    });
-  </script>
-</body>
-
-</html>
+    document.addEventListener('mousemove', e
