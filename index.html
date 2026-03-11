@@ -1202,6 +1202,212 @@
         }
 
         /* ══════════════════════════════════════
+   CERTIFICATION CARDS
+══════════════════════════════════════ */
+        .cert-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .cert-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            padding: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.35s;
+            cursor: none;
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(0, 188, 212, 0.07), transparent);
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+
+        .cert-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00bcd4, #7c3aed);
+            transform: scaleX(0);
+            transition: transform 0.35s ease;
+            transform-origin: left;
+        }
+
+        .cert-card:hover {
+            background: rgba(0, 188, 212, 0.06);
+            border-color: rgba(0, 188, 212, 0.35);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 188, 212, 0.1);
+        }
+
+        .cert-card:hover::before {
+            opacity: 1;
+        }
+
+        .cert-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .cert-card-issuer {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #00bcd4;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .cert-card-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.35;
+        }
+
+        .cert-card-meta {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 0.2rem;
+        }
+
+        .cert-card-id {
+            font-size: 0.7rem;
+            font-family: monospace;
+            color: rgba(255, 255, 255, 0.25);
+            padding-top: 0.7rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 0.3rem;
+        }
+
+        .cert-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.65rem;
+            border-radius: 2rem;
+            width: fit-content;
+            margin-bottom: 0.3rem;
+        }
+
+        .cert-badge.badge-pro {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #10b981;
+        }
+
+        .cert-badge.badge-part {
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.35);
+            color: #3b82f6;
+        }
+
+        .cert-badge.badge-comp {
+            background: rgba(124, 58, 237, 0.15);
+            border: 1px solid rgba(124, 58, 237, 0.35);
+            color: #a78bfa;
+        }
+
+        /* ══════════════════════════════════════
+   ACTIVITIES SECTION
+══════════════════════════════════════ */
+        #activities .container {
+            max-width: 1200px;
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .activity-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: all 0.35s;
+            cursor: none;
+            position: relative;
+        }
+
+        .activity-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #00bcd4, #7c3aed);
+            transform: scaleX(0);
+            transition: transform 0.35s;
+            transform-origin: left;
+        }
+
+        .activity-card:hover {
+            border-color: rgba(0, 188, 212, 0.35);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 188, 212, 0.1);
+        }
+
+        .activity-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .activity-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .activity-card:hover .activity-img {
+            transform: scale(1.04);
+        }
+
+        .activity-img-wrap {
+            overflow: hidden;
+        }
+
+        .activity-info {
+            padding: 1.2rem 1.4rem;
+        }
+
+        .activity-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .activity-sub {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.45);
+        }
+
+        /* ══════════════════════════════════════
    INTERNSHIP CERTIFICATES
 ══════════════════════════════════════ */
         .internship-grid {
@@ -1600,6 +1806,8 @@
             <a href="#projects" class="dash-btn" data-section="projects"> <span class="d-icon">🚀</span> Projects</a>
             <a href="#internships" class="dash-btn" data-section="internships"> <span class="d-icon">💼</span>
                 Experience</a>
+            <a href="#activities" class="dash-btn" data-section="activities"> <span class="d-icon">🎯</span>
+                Activities</a>
             <a href="#contact" class="dash-btn" data-section="contact"> <span class="d-icon">✉️</span> Contact</a>
         </div>
     </nav>
@@ -1912,22 +2120,7 @@
     <section id="internships" class="page-section">
         <div class="container reveal">
             <div class="two-col">
-                <div class="info-card">
-                    <div class="info-card-title">Internships</div>
-                    <div class="info-cyan-bar"></div>
-                    <div class="info-item">
-                        <div class="info-item-title">AIML Intern</div>
-                        <div class="info-item-sub">AICTE Approved · AI/ML Track</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-item-title">Google Android Developer</div>
-                        <div class="info-item-sub">AICTE Approved · Mobile Development</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-item-title">AWS Cloud Intern</div>
-                        <div class="info-item-sub">AICTE Approved · Cloud Computing</div>
-                    </div>
-                </div>
+
                 <div class="info-card">
                     <div class="info-card-title">Education</div>
                     <div class="info-cyan-bar"></div>
@@ -1945,32 +2138,7 @@
 
         <div class="container">
             <div class="reveal">
-                <h2 class="section-heading">Achievement</h2>
-                <div class="cyan-bar"></div>
-                <div class="achievement-banner">
-                    <div class="trophy">🏆</div>
-                    <div>
-                        <div class="ach-title">College Hackathon Winner</div>
-                        <p class="ach-desc">Won 1st place for "Real-Time Data-Driven Application Development Using
-                            Machine Learning
-                            &amp; Deep Learning" — a live system combining ML inference pipelines with real-time data
-                            ingestion and
-                            interactive visualization.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="reveal">
-                <h2 class="section-heading">Certifications</h2>
-                <div class="cyan-bar"></div>
-                <div class="certs-row stagger">
-                    <div class="cert-pill"><span class="cert-icon">☁️</span> Salesforce</div>
-                    <div class="cert-pill"><span class="cert-icon">🖥️</span> IBM Full Stack Development</div>
-                    <div class="cert-pill"><span class="cert-icon">🧠</span> IBM Generative AI</div>
-                </div>
-            </div>
-
-            <div class="reveal">
-                <h2 class="section-heading" style="margin-top:3rem">Virtual Internships</h2>
+                <h2 class="section-heading" style="margin-top:3rem">Internships & Virtual Internships</h2>
                 <div class="cyan-bar"></div>
                 <div class="internship-grid stagger">
 
@@ -2039,6 +2207,127 @@
         </div>
     </section>
 
+    <!-- ACHIEVEMENTS, ACTIVITIES & CERTS -->
+    <section id="activities" class="page-section">
+        <div class="container">
+            <div class="reveal">
+                <h2 class="section-heading">Achievements & Activities</h2>
+                <div class="cyan-bar"></div>
+
+                <div class="stagger"
+                    style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem; margin-bottom: 4rem;">
+
+                    <div class="achievement-banner" style="margin-top: 0;">
+                        <div class="trophy">🏆</div>
+                        <div>
+                            <div class="ach-title">College Hackathon Winner</div>
+                            <p class="ach-desc">Won 1st place for "Real-Time Data-Driven Application Development Using
+                                Machine Learning &amp; Deep Learning" — a live system combining ML inference pipelines
+                                with real-time data ingestion and interactive visualization.</p>
+                        </div>
+                    </div>
+
+                    <div class="achievement-banner" style="margin-top: 0;">
+                        <div class="trophy">🥉</div>
+                        <div>
+                            <div class="ach-title">3rd Prize — ML & Deep Learning Hackathon</div>
+                            <p class="ach-desc">One Week Workshop · Santhiram Engineering College · Feb 2026</p>
+                        </div>
+                    </div>
+
+                    <div class="achievement-banner" style="margin-top: 0;">
+                        <div class="trophy">🎓</div>
+                        <div>
+                            <div class="ach-title">Front-End Development — HTML, CSS & JavaScript</div>
+                            <p class="ach-desc">Certificate Program · Santhiram Engineering College · May 2024</p>
+                        </div>
+                    </div>
+
+                    <div class="achievement-banner" style="margin-top: 0;">
+                        <div class="trophy">🗣️</div>
+                        <div>
+                            <div class="ach-title">Mr. & Ms. Language & Body Language</div>
+                            <p class="ach-desc">Competition · Dept. of Basic Sciences · Feb 26, 2024</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="reveal">
+                <h2 class="section-heading">Certifications</h2>
+                <div class="cyan-bar"></div>
+                <div class="cert-cards-grid stagger">
+
+                    <!-- Salesforce Agentforce Specialist -->
+                    <div class="cert-card">
+                        <div class="cert-badge badge-pro">🏅 Professional Certification</div>
+                        <div class="cert-card-issuer">☁️ Salesforce · Trailhead</div>
+                        <div class="cert-card-title">Agentforce Specialist</div>
+                        <div class="cert-card-meta">📅 Issued: December 27, 2025</div>
+                        <div class="cert-card-id">Credential ID: 7292607 · sforce.co/verifycerts</div>
+                    </div>
+
+                    <!-- Databricks Generative AI Fundamentals -->
+                    <div class="cert-card">
+                        <div class="cert-badge badge-pro">🏅 Accreditation</div>
+                        <div class="cert-card-issuer">🧱 Databricks Academy</div>
+                        <div class="cert-card-title">Accredited Generative AI Fundamentals</div>
+                        <div class="cert-card-meta">📅 Issued: March 11, 2025 &nbsp;·&nbsp; Expires: March 11, 2027
+                        </div>
+                    </div>
+
+                    <!-- IBM Prompt Engineering -->
+                    <div class="cert-card">
+                        <div class="cert-badge badge-comp">✅ Completed</div>
+                        <div class="cert-card-issuer">🤖 IBM · Cognitive Class</div>
+                        <div class="cert-card-title">Prompt Engineering for Everyone</div>
+                        <div class="cert-card-meta">📅 Issued: March 13, 2025</div>
+                        <div class="cert-card-id">Course ID: AI0117EN</div>
+                    </div>
+
+                    <!-- IBM Web Development Fundamentals -->
+                    <div class="cert-card">
+                        <div class="cert-badge badge-comp">✅ Completed</div>
+                        <div class="cert-card-issuer">🖥️ IBM SkillsBuild</div>
+                        <div class="cert-card-title">Web Development Fundamentals</div>
+                        <div class="cert-card-meta">📅 Issued: July 09, 2025</div>
+                        <div class="cert-card-id">Verify: credly.com/badges/fc1baf04-c026-42cf-b9b1-da53cb0f3388</div>
+                    </div>
+
+                    <!-- Nasscom Digital Application Fundamentals -->
+                    <div class="cert-card">
+                        <div class="cert-badge badge-comp">✅ Completed</div>
+                        <div class="cert-card-issuer">🌐 Nasscom · FutureSkills Prime</div>
+                        <div class="cert-card-title">Digital Application Fundamentals (STEM)</div>
+                        <div class="cert-card-meta">📅 Issued: February 20, 2026</div>
+                        <div class="cert-card-id">Certificate ID: 26200263928</div>
+                    </div>
+
+                    <!-- Adobe Generative AI -->
+                    <div class="cert-card">
+                        <div class="cert-badge badge-comp">✅ Completed</div>
+                        <div class="cert-card-issuer">🎨 Adobe Learning Manager</div>
+                        <div class="cert-card-title">Introduction to Generative AI</div>
+                        <div class="cert-card-meta">📅 Completed: February 13, 2026 &nbsp;·&nbsp; 4 hrs</div>
+                        <div class="cert-card-id">Course ID: ALM-COURSE_4058859</div>
+                    </div>
+
+                    <!-- WISER Quantum Fundamentals -->
+                    <div class="cert-card">
+                        <div class="cert-badge badge-comp">✅ Completed</div>
+                        <div class="cert-card-issuer">⚛️ WISER · Qubitech · Amaravati Quantum Valley</div>
+                        <div class="cert-card-title">Quantum Fundamentals Program 2025–2026</div>
+                        <div class="cert-card-meta">📅 Issued: February 03, 2026 &nbsp;·&nbsp; 1 Academic Credit</div>
+                        <div class="cert-card-id">Certificate ID: 7521410F</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
     <!-- CONTACT -->
     <section id="contact" class="page-section">
         <div class="container reveal">
@@ -2078,13 +2367,17 @@
     <!-- FOOTER -->
     <footer>
         <div>
-            <div>✉ <a href="mailto:rampativenkatasubash@gmail.com">rampativenkatasubash@gmail.com</a>
+            <div>✉ <a
+                    href="/cdn-cgi/l/email-protection#f785969a8796839e8192999c96839684829596849fb7909a969e9bd994989a"><span
+                        class="__cf_email__"
+                        data-cfemail="d9abb8b4a9b8adb0afbcb7b2b8adb8aaacbbb8aab199beb4b8b0b5f7bab6b4">[email&#160;protected]</span></a>
             </div>
             <div>📱 +91 93981 69378</div>
         </div>
         <span>RVS.</span>
     </footer>
 
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         // ══════════════════════════════════════
         // SCROLL SPY & REVEAL
