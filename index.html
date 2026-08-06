@@ -333,6 +333,18 @@
   .contact-title span{color:var(--cyan);}
   .contact-sub{color:var(--muted);max-width:520px;margin:0 auto 34px;font-size:15px;}
   .contact-grid{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:10px;}
+  .contact-form{display:grid;gap:18px;max-width:780px;margin:0 auto 32px;text-align:left;}
+  .contact-form label{display:flex;flex-direction:column;gap:10px;font-size:13.5px;color:var(--text);font-family:var(--body);}
+  .contact-form input,
+  .contact-form textarea{
+    width:100%;background:var(--panel);border:1px solid var(--panel-border);
+    border-radius:14px;padding:14px 16px;color:var(--text);font-family:var(--body);
+    font-size:14px;transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,240,220,.12);}
+  .form-actions{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:center;}
+  .form-status{color:var(--cyan);font-family:var(--mono);font-size:13px;}
   .contact-item{
     font-family:var(--mono);font-size:13.5px;color:var(--text);text-decoration:none;
     border:1px solid var(--panel-border);padding:12px 20px;border-radius:10px;
@@ -466,6 +478,23 @@
     animation:burstAnim .7s cubic-bezier(.2,.7,.3,1) forwards;
   }
   @keyframes burstAnim{to{transform:translate(var(--dx), var(--dy)) scale(0);opacity:0;}}
+  /* ===== extra animation additions ===== */
+  .tilt-target{ transition: transform .12s ease-out; will-change: transform; }
+  .btn, .contact-item{ position: relative; transition: transform .18s cubic-bezier(.2,.7,.3,1); }
+  .sec-eyebrow{ position: relative; }
+  .sec-eyebrow::before{
+    content: attr(data-text);
+    position: absolute; inset: 0; color: var(--cyan);
+    overflow: hidden; width: 0; white-space: nowrap;
+    animation: eyebrowSweep 1s steps(24, end) forwards;
+    animation-play-state: paused;
+  }
+  .sec-eyebrow.sweep::before{ animation-play-state: running; }
+  @keyframes eyebrowSweep{ to{ width: 100%; } }
+  @media (prefers-reduced-motion: reduce){
+    .tilt-target{ transition: none; }
+    .sec-eyebrow::before{ animation: none; width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -474,6 +503,8 @@
 <div class="glow-a"></div>
 <div class="glow-b"></div>
 <div class="glow-c"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
 <nav>
   <div class="logo">RVS</div>
@@ -669,6 +700,24 @@
     <div class="sec-eyebrow">Let's Build Something</div>
     <h2 class="contact-title">Open to <span>opportunities</span> in Data Science &amp; AI/ML</h2>
     <p class="contact-sub">Currently exploring roles and collaborations in applied machine learning, computer vision, and generative AI. Reach out — I reply fast.</p>
+    <form class="contact-form" id="contactForm">
+      <label>
+        Full Name
+        <input type="text" name="name" placeholder="Your full name" required>
+      </label>
+      <label>
+        Email Address
+        <input type="email" name="email" placeholder="your@email.com" required>
+      </label>
+      <label>
+        Message
+        <textarea name="message" rows="5" placeholder="Tell me how I can help." required></textarea>
+      </label>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Send Message</button>
+        <span class="form-status" id="formStatus" aria-live="polite"></span>
+      </div>
+    </form>
     <div class="contact-grid">
       <a class="contact-item" href="mailto:rampativenkatasubash@gmail.com">✉ rampativenkatasubash@gmail.com</a>
       <a class="contact-item" href="tel:+919398169378">☎ +91 93981 69378</a>
@@ -855,7 +904,157 @@
   function closeModal(){ modalOverlay.classList.remove('open'); }
   modalOverlay.addEventListener('click', (e)=>{ if(e.target===modalOverlay) closeModal(); });
   document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+  const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      formStatus.textContent = 'Sending message...';
+
+      const payload = {
+        name: contactForm.name.value.trim(),
+        email: contactForm.email.value.trim(),
+        message: contactForm.message.value.trim(),
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          formStatus.textContent = 'Message sent successfully. I will receive your email soon.';
+          contactForm.reset();
+        } else {
+          formStatus.textContent = data.error || 'Unable to send the message. Please try again later.';
+        }
+      } catch (error) {
+        formStatus.textContent = 'Unable to send the message. Please try again later.';
+      }
+    });
+  }
 </script>
 
+<script>
+(function(){
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFinePointer = window.matchMedia('(pointer:fine)').matches;
+
+  /* 1) custom cursor */
+  if (isFinePointer && !reduceMotion) {
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let dx = 0, dy = 0, rx = 0, ry = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      dx = e.clientX; dy = e.clientY;
+      dot.style.left = dx + 'px';
+      dot.style.top = dy + 'px';
+    });
+
+    function ringLoop(){
+      rx += (dx - rx) * 0.18;
+      ry += (dy - ry) * 0.18;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(ringLoop);
+    }
+    ringLoop();
+
+    const hoverSelector = 'a, button, .cert-item, .swatch, .chip, .proj-card, .skill-card, .theme-fab-btn';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(hoverSelector)) ring.classList.add('hover');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(hoverSelector)) ring.classList.remove('hover');
+    });
+    document.addEventListener('mousedown', () => { ring.style.transform = 'translate(-50%,-50%) scale(0.85)'; });
+    document.addEventListener('mouseup', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; });
+  }
+
+  /* 2) click burst particles */
+  if (!reduceMotion) {
+    document.addEventListener('click', (e) => {
+      const count = 8;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'burst-particle';
+        const angle = (Math.PI * 2 * i) / count + Math.random() * 0.3;
+        const dist = 26 + Math.random() * 22;
+        p.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+        p.style.setProperty('--dy', Math.sin(angle) * dist + 'px');
+        p.style.left = e.clientX + 'px';
+        p.style.top = e.clientY + 'px';
+        document.body.appendChild(p);
+        p.addEventListener('animationend', () => p.remove());
+      }
+    });
+  }
+
+  /* 3a. tilt-on-hover for project/skill cards */
+  if (isFinePointer && !reduceMotion) {
+    document.querySelectorAll('.proj-card, .skill-card').forEach(card => {
+      card.classList.add('tilt-target');
+      card.addEventListener('mousemove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `translateY(-6px) rotateX(${py * -6}deg) rotateY(${px * 8}deg)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+
+    /* 3b. magnetic buttons + contact chips */
+    document.querySelectorAll('.btn, .contact-item').forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        const r = el.getBoundingClientRect();
+        const mx = (e.clientX - r.left - r.width / 2) * 0.18;
+        const my = (e.clientY - r.top - r.height / 2) * 0.28;
+        el.style.transform = `translate(${mx}px, ${my}px)`;
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    });
+  }
+
+  /* 3c. parallax on ambient glow blobs while scrolling */
+  if (!reduceMotion) {
+    const glowA = document.querySelector('.glow-a');
+    const glowB = document.querySelector('.glow-b');
+    const glowC = document.querySelector('.glow-c');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (glowA) glowA.style.transform = `translateY(${y * 0.12}px)`;
+        if (glowB) glowB.style.transform = `translateY(${y * -0.08}px)`;
+        if (glowC) glowC.style.transform = `translateY(${y * 0.06}px)`;
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  /* 3d. letter-sweep reveal for section eyebrows */
+  document.querySelectorAll('.sec-eyebrow').forEach(eb => {
+    eb.setAttribute('data-text', eb.textContent);
+  });
+  if ('IntersectionObserver' in window) {
+    const eyeIO = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('sweep');
+          eyeIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('.sec-eyebrow').forEach(eb => eyeIO.observe(eb));
+  }
+})();
+</script>
 </body>
 </html>
